@@ -6,6 +6,7 @@
 int main () {
     int a, b;
     scanf ("%d%d", &a, &b);
+    // se o resto da divisão for 0 é uma divisão inteira, caso contrario tem resto
     ((a%b) == 0) ? printf ("1") : printf ("0");
     return 0;
 }

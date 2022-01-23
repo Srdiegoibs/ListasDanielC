@@ -8,6 +8,9 @@ int main() {
     scanf ("%d", &a);    
     // AND binário. Copia um bit para o resultado
     // caso exista em ambos operandos.
-    !(a & 1) ? printf ("par 1") : printf ("impar 0");
+    // se o numero for  par toda vez que realizar a aperação
+    // AND binario com 1 o resto vai ser falso, caso seja impar a 
+    // operação AND com  vai ser verdadeira
+    (a & 1) ? printf ("impar 0") : printf ("par 1");
     return 0;
 }

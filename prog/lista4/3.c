@@ -8,26 +8,27 @@
 #include <stdio.h>
 
 int main() {
-    int num, rest = 0, rest1 = 0, rest2 = 0, rest3 = 0;
-    int div = 0, div1 = 0, div2 = 0;
-
+    int num = 0, cont = 0, sum = 0;
+    int vet[4] = {0, 0, 0, 0};
+   
     scanf("%d", &num);
+    
+    if (num == 0) cont = 1;
+    else
+      while (num != 0) {
+	num /= 10;
+	vet[cont] = num%10;
+	cont++;
+      }
 
-    if(num == 0) {
-        // rest recebe o resto da divisão do numero 
-        // por 10, div recebe a divisão inteira do numero por 10
-        rest = num%10;
-        div = num/10;
-        rest1 = div%10;
-        div1 = div/10;
-        rest2 = div1%10; 
-        rest3 = div1/10;
+    if (cont > 4) printf ("ERROR!\n");
+    else
+      for (int i = 0; i < cont; i++) printf ("[%d]", vet[i]);
 
-        int solucao = rest+rest1+rest2+rest3;
-        printf("%d\n", solucao);
-    }
 
-    printf("ERRO!\n");
+
+
+    printf("did =%d\n", cont);
 
     return 0;
 }

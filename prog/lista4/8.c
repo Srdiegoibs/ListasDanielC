@@ -4,15 +4,28 @@
 #include <math.h>
 
 int main() {
-    float a, b, c;
+    float a, b, c, delta, sqrtdelta, root1, root2;
     scanf ("%f %f %f", &a, &b, &c);
 
-    float delta = ((b*b) - (4 * a * c));
-    
-    float raiz = ((-b + (sqrt(delta)))/2);
-    float raiz1 = ((-b - (sqrt(delta)))/2);
 
-    printf ("raiz1: %f\nraiz2: %f", raiz, raiz1);
+    if (a != 0) {
+        delta = ((b*b) - (4 * a * c));
+        sqrtdelta = sqrt(delta);
+
+        if (delta >= 0) {
+            root1 = (-b + sqrtdelta)/(2*a);
+            root2 = (-b - sqrtdelta)/(2*a);
+            printf ("Root 1: %.2f\nRoot 2 %.2f\n", root1, root2);
+        }
+        else {
+            delta = -delta;
+            sqrtdelta = sqrt(delta);
+            printf ("Root 1: %.2f + i.%2f\n", (-b)/(2*a), (sqrtdelta)/(2*a));
+            printf ("Root 2: %.2f - i.%2f\n", (-b)/(2*a), (sqrtdelta)/(2*a));
+        }
+    }
+    else
+        printf ("ERROR!");
 
     return 0;
 }

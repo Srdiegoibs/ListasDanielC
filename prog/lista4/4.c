@@ -6,13 +6,12 @@ int main() {
     double a = 0, b = 0, c = 0;
     double res;
 
-    scanf("%lf", &a);
-    scanf("%lf", &b);
-    scanf("%lf", &c);
+    scanf("%lf, %lf, %lf", &a, &b, &c);
+   
+    printf ("a = %lf\nb = %lf\nc = %lf\n", a, b, c);
 
     res = a+b;
-    if(res == c)
-        printf("Iguais");
+    if (res == c)  printf ("equals");
 
     return 0;
 }

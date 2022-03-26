@@ -2,63 +2,78 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAXLEN 9
 
-typedef char *
 
-
+const char * array[] = {
+    "Mamifero",
+    "aves",
+    "Third entry",
+};
 
 
 typedef struct Animal *animalptr;
 
 typedef struct Animal {
-    int n;
     char *str;
     animalptr left, right;
 } Animal;
 
-Animal* insert (Animal *root, char* str, int n) {
-    if(root == NULL) {
-        root = (Animal*) malloc(sizeof(Animal));
-        root->n = n;
-        root->str = str;
+typedef int (*compare)(const char*, const char*);
 
-        root->left = NULL;
-        root->right = NULL;
-    }
-    else if (n > root->n) {
-        insert (root->left, str, n);
-        printf ("%s", root->left->str);
-    }        
+void insert (char* key, Animal** leaf, compare cmp) {
+    int res;
+    if (*leaf == NULL) {
+        *leaf = (Animal*) malloc(sizeof(Animal));
+        (*leaf)->str = malloc(strlen(key) + 1);
+        strcpy ((*leaf)->str, key);
 
-    else if (n < root->n)
-        insert (root->right, str, n);
+        (*leaf)->left = NULL; 
+        (*leaf)->right = NULL;
 
-    return root;
+        printf("\nnew node for %s", key); 
+    } 
+    else {
+        res = cmp (key, (*leaf)->str);
+        if (res < 0) insert (key, &(*leaf)->left, cmp);
+        else if (res > 0) insert (key, &(*leaf)->right, cmp);
+        else printf("key '%s' already in tree\n", key);
+
+    } 
 }
 
-void printTree (Animal *root) {
-    if (root != NULL) {
-        printTree (root->left);
-        printf("%s", root->str);
-        printTree (root->right);
+int cmpStr (const char* a, const char* b) {
+    return (strcmp (a,b));
+}
+
+
+void printTree (Animal *parent) {
+    if (parent != NULL) {
+        printTree (parent->left);
+        printf(" [%s]", parent->str);
+        printTree (parent->right);
     }
 }
+
+char *input(void) {
+    static char line[MAXLEN+1];
+    fgets(line, sizeof line, stdin);
+    return ( strtok(line, "\n" ));
+}
+
 
 int main () {
-    Animal *a;
+    Animal *a = NULL;
+    char **str;
+
     
-    a = insert(a, "cavalo", 1);
-    a = insert(a, "leao", 2);
-    a = insert(a, "homem", 3);
-    a = insert(a, "macaco", 4);
-    a = insert(a, "baleia", 5);
-    a = insert(a, "avestruz", 6);
-    a = insert(a, "pinguin", 7);
-    a = insert(a, "pato", 8);
-    a = insert(a, "aguia", 9);
-    a = insert(a, "tartaruga", 10);
-    a = insert(a, "crocodilo", 11);
-    a = insert(a, "cobra", 12);
+    str = {"teste", "teste1", "teste2", "teste3", "teste3"};
+    insert(str, &a, (compare)cmpStr);
+
+
+    // printTree(a);
+
+
 
 
     return 0;

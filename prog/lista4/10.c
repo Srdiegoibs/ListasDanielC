@@ -5,12 +5,14 @@
 #define MAXLEN 9
 
 
-const char * array[] = {
-    "Mamifero",
-    "aves",
-    "Third entry",
+char* dict[] = {
+    "Mamifero","aves","repteis",
+    "quadrupede", "bipede", "voadores", "aquaticos",
+    "nao-voadoras", "nadadoras", "de rapina", "com casco", "carnivoros", "sem patas",
+    "carnivoro", "herbivoro", "onivoro", "afrutifero", "tropical", "polar", 
+    "leao", "cavalo", "homem", "macaco", "morcego", "baleia", "avestruz", "pinguim", 
+    "pato", "aguia", "tartaruga", "crocodilo", "cobra"
 };
-
 
 typedef struct Animal *animalptr;
 
@@ -31,9 +33,10 @@ void insert (char* key, Animal** leaf, compare cmp) {
         (*leaf)->left = NULL; 
         (*leaf)->right = NULL;
 
-        printf("\nnew node for %s", key); 
+        // printf("\nnew node for %s", key); 
     } 
     else {
+        printf("%d\n", res);
         res = cmp (key, (*leaf)->str);
         if (res < 0) insert (key, &(*leaf)->left, cmp);
         else if (res > 0) insert (key, &(*leaf)->right, cmp);
@@ -55,23 +58,16 @@ void printTree (Animal *parent) {
     }
 }
 
-char *input(void) {
-    static char line[MAXLEN+1];
-    fgets(line, sizeof line, stdin);
-    return ( strtok(line, "\n" ));
-}
-
-
 int main () {
-    Animal *a = NULL;
-    char **str;
-
+    Animal *parent = NULL;
     
-    str = {"teste", "teste1", "teste2", "teste3", "teste3"};
-    insert(str, &a, (compare)cmpStr);
+    // insert(dict[0], &parent, (compare)cmpStr);
+    // printTree(parent);
+    for (int i = 0;  i < sizeof(dict); i++) {
+        insert(dict[i], &parent, (compare)cmpStr);
+    }
 
-
-    // printTree(a);
+    printTree(parent);
 
 
 

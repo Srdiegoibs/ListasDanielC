@@ -33,10 +33,10 @@ void insert (char* key, Animal** leaf, compare cmp) {
         (*leaf)->left = NULL; 
         (*leaf)->right = NULL;
 
-        // printf("\nnew node for %s", key); 
+        printf("\nnew node for %s", key); 
     } 
     else {
-        printf("%d\n", res);
+        // printf("%d\n", res);
         res = cmp (key, (*leaf)->str);
         if (res < 0) insert (key, &(*leaf)->left, cmp);
         else if (res > 0) insert (key, &(*leaf)->right, cmp);
@@ -46,6 +46,7 @@ void insert (char* key, Animal** leaf, compare cmp) {
 }
 
 int cmpStr (const char* a, const char* b) {
+    // printf("a = %d\n b = %d", strlen(a), strlen(b));
     return (strcmp (a,b));
 }
 
@@ -67,10 +68,7 @@ int main () {
         insert(dict[i], &parent, (compare)cmpStr);
     }
 
-    printTree(parent);
-
-
-
+    // printTree(parent);
 
     return 0;
 }

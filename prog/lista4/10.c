@@ -3,6 +3,7 @@
 #include <string.h>
 
 #define MAXLEN 10
+#define NUM_NODES 32
 
 
 char* dict[] = {
@@ -22,28 +23,6 @@ typedef struct Animal {
 } Animal;
 
 typedef int (*compare)(const char*, const char*);
-
-
-// void insert(char* key, Animal** leaf, compare cmp)
-// {
-//     int res;
-//     if( *leaf == NULL ) {
-//         *leaf = (Animal*) malloc( sizeof( Animal ) );
-//         (*leaf)->str = malloc( strlen (key) +1 );     // memory for key
-//         strcpy ((*leaf)->str, key);                   // copy the key
-//         (*leaf)->left = NULL;
-//         (*leaf)->right = NULL;
-//         //printf(  "\nnew node for %s" , key);
-//     } else {
-//         res = cmp (key, (*leaf)->str);
-//         if( res < 0)
-//             insert( key, &(*leaf)->left, cmp);
-//         else if( res > 0)
-//             insert( key, &(*leaf)->right, cmp);
-//         else                                            // key already exists
-//             printf ("Key '%s' already in tree\n", key);
-//     }
-// }
 
 void insert (char* key, Animal** leaf, compare cmp) {
     int res;
@@ -75,22 +54,53 @@ int cmpStr (const char* a, const char* b) {
 void printTree (Animal *parent) {
     if (parent != NULL) {
         printTree (parent->left);
-        printf(" [%s] \n", parent->str);
+        printf("[%s] \n", parent->str);
         printTree (parent->right);
     }
 }
 
+Animal *search (Animal *parent, char* key, compare cmp) {
+    if (parent == NULL) return NULL;
+    else {
+        int res = cmp (key, parent->str);
+        if (res < 0) return search (parent->left, key, cmp);
+        else if (res > 0) return search (parent->right, key, cmp);
+        else return parent;
+    }
+}
+
+
 int main () {
     Animal *parent = NULL;
-    
+    char q;   
+    char *choice = malloc(sizeof(char));
+
+    scanf("%s", choice);
+
+    printf("%s\n", choice);
+
+
+    // do {
+    //     // if ((choice != "sim" || choice != "nao") && (strlen(choice) > 4)) {
+    //     //     printf ("me da seu butão\n");
+    //     //     exit(0);
+    //     // }
+    //     printf("%s?", dict[0]); 
+    // }while (choice != "quit");
+
+    // search(parent, '', cmpStr);
+
     // printf("%ld\n", sizeof(dict));
     // insert(dict[0], &parent, (compare)cmpStr);
     // printTree(parent);
-    for (int i = 0;  i < 32; i++) {
-        insert(dict[i], &parent, (compare)cmpStr);
-    }
+    // for (int i = 0;  i < NUM_NODES; i++) {
+    //     insert(dict[i], &parent, (compare)cmpStr);
+    // }
 
-    printTree(parent);
+    // printf ("%s", search(parent, "", (compare)cmpStr)->str);
+
+
+    // printTree(parent);
 
     return 0;
 }

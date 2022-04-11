@@ -2,105 +2,126 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAXLEN 10
-#define NUM_NODES 32
+
+typedef struct elements {
+    char *weight;
+    char *str;
+} Elements;
 
 
-char* dict[] = {
-    "Mamifero","aves","repteis",
-    "quadrupede", "bipede", "voadores", "aquaticos",
-    "nao-voadoras", "nadadoras", "de rapina", "com casco", "carnivoros", "sem patas",
-    "carnivoro", "herbivoro", "onivoro", "afrutifero", "tropical", "polar", 
-    "leao", "cavalo", "homem", "macaco", "morcego", "baleia", "avestruz", "pinguim", 
-    "pato", "aguia", "tartaruga", "crocodilo", "cobra"
+Elements dict[] = {
+    {"1", "Mamifero?"}, 
+    {"2", "aves?"}, 
+    {"3", "repteis?"}, 
+    {"11", "quadrupede?"}, 
+    {"12", "bipede?"}, 
+    {"13", "voadores?"}, 
+    {"14","aquaticos?"},
+    {"21", "nao-voadoras?"}, 
+    {"22", "nadadoras?"}, 
+    {"23", "de rapina?"}, 
+    {"31", "com casco?"}, 
+    {"32", "carnivoros?"}, 
+    {"33", "sem patas?"},
+    {"111", "carnivoro?"},
+    {"112", "herbivoro?"}, 
+    {"121", "onivoro?"}, 
+    {"122", "frutifero?"}, 
+    {"211", "tropical?"}, 
+    {"212", "polar?"}, 
+    {"1111", "leao"}, 
+    {"1121", "cavalo"}, 
+    {"1211", "homem"}, 
+    {"1221", "macaco"}, 
+    {"131", "morcego"}, 
+    {"141", "baleia"}, 
+    {"2111", "avestruz"}, 
+    {"2121", "pinguim"}, 
+    {"221", "pato"}, 
+    {"231", "aguia"}, 
+    {"311", "tartaruga"}, 
+    {"321", "crocodilo"}, 
+    {"331", "cobra"}
 };
+
+#define NUM_NODES (sizeof(dict)/sizeof(*dict))
 
 typedef struct Animal *animalptr;
 
 typedef struct Animal {
+    char *weight;
     char *str;
     animalptr left, right;
 } Animal;
 
 typedef int (*compare)(const char*, const char*);
 
-void insert (char* key, Animal** leaf, compare cmp) {
+void insert(Elements *key, Animal **leaf, compare cmp) {
     int res;
     if (*leaf == NULL) { 
         *leaf = (Animal*) malloc(sizeof(Animal));
-        (*leaf)->str = malloc(strlen(key) + 1);
-        strcpy ((*leaf)->str, key);
+        (*leaf)->str = strdup(key->str);
+        (*leaf)->weight = strdup(key->weight);
 
         (*leaf)->left = NULL; 
         (*leaf)->right = NULL;
-
-        // printf("\nnew node for %s", key); 
     } 
     else {
-        // printf("%d\n", res);
-        res = cmp (key, (*leaf)->str);
+        res = cmp(key->weight, (*leaf)->weight);
         if (res < 0) insert (key, &(*leaf)->left, cmp);
         else if (res > 0) insert (key, &(*leaf)->right, cmp);
-        else printf("key '%s' already in tree\n", key);
-
     } 
 }
 
-int cmpStr (const char* a, const char* b) {
-    // printf("a = %d\n b = %d", strlen(a), strlen(b));
-    return (strcmp (a,b));
+int cmpStr(const char *a, const char *b) {
+    // Case are equal
+    if (strcmp(a, b) == 0)
+        return 0;
+
+    // If the prefixes are the same, it means a is a child of b, 
+    // insert on the right e.g.: {"1", "Mamifero"} and {"11", "quadrupide"}
+    if (strncmp(a, b, strlen(b)) == 0)
+        return 1;
+
+    // Otherwise insert left
+    return -1;
 }
 
-void printTree (Animal *parent) {
-    if (parent != NULL) {
-        printTree (parent->left);
-        printf("[%s] \n", parent->str);
-        printTree (parent->right);
+char *search(Animal *leaf) {
+    char *ret = "";
+    char buf[16];
+
+    while (leaf) {
+        if (!leaf->right && !leaf->left) {
+            ret = leaf->str;
+            break;
+        }
+
+        printf("%s ", leaf->str);
+        fgets(buf, sizeof(buf), stdin);
+
+        // If yes, go to the right
+        if ((*buf == 's') || (*buf == 'S')) leaf = leaf->right;   
+        // Otherwise, left
+        else if ((*buf == 'n') || (*buf == 'N')) leaf = leaf->left;
     }
+
+    return ret;
 }
 
-Animal *search (Animal *parent, char* key, compare cmp) {
-    if (parent == NULL) return NULL;
-    else {
-        int res = cmp (key, parent->str);
-        if (res < 0) return search (parent->left, key, cmp);
-        else if (res > 0) return search (parent->right, key, cmp);
-        else return parent;
-    }
-}
-
-
-int main () {
+int main() {
     Animal *parent = NULL;
-    char q;   
-    char *choice = malloc(sizeof(char));
 
-    scanf("%s", choice);
+    // Fill the tree with the elements
+    for (int i = 0; i < NUM_NODES; i++) {
+        insert(&dict[i], &parent, (compare)cmpStr);
+    }
 
-    printf("%s\n", choice);
+    char *loop = search(parent);
 
-
-    // do {
-    //     // if ((choice != "sim" || choice != "nao") && (strlen(choice) > 4)) {
-    //     //     printf ("me da seu butão\n");
-    //     //     exit(0);
-    //     // }
-    //     printf("%s?", dict[0]); 
-    // }while (choice != "quit");
-
-    // search(parent, '', cmpStr);
-
-    // printf("%ld\n", sizeof(dict));
-    // insert(dict[0], &parent, (compare)cmpStr);
-    // printTree(parent);
-    // for (int i = 0;  i < NUM_NODES; i++) {
-    //     insert(dict[i], &parent, (compare)cmpStr);
-    // }
-
-    // printf ("%s", search(parent, "", (compare)cmpStr)->str);
-
-
-    // printTree(parent);
+    // Print the search, until you exit with the option 'q' or 'Q'
+    if (search(parent) != NULL)
+        printf("> %s\n", loop);
 
     return 0;
 }

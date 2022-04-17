@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define NUM_NODES (sizeof(dict)/sizeof(*dict))
+typedef struct Animal *animalptr;
+typedef int (*compare)(const char*, const char*);
 
 typedef struct elements {
     char *weight;
@@ -43,9 +46,6 @@ Elements dict[] = {
     {"331", "cobra"}
 };
 
-#define NUM_NODES (sizeof(dict)/sizeof(*dict))
-
-typedef struct Animal *animalptr;
 
 typedef struct Animal {
     char *weight;
@@ -53,7 +53,6 @@ typedef struct Animal {
     animalptr left, right;
 } Animal;
 
-typedef int (*compare)(const char*, const char*);
 
 void insert(Elements *key, Animal **leaf, compare cmp) {
     int res;

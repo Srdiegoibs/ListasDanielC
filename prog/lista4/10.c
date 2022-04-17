@@ -8,7 +8,6 @@ typedef struct elements {
     char *str;
 } Elements;
 
-
 Elements dict[] = {
     {"1", "Mamifero?"}, 
     {"2", "aves?"}, 
@@ -88,24 +87,33 @@ int cmpStr(const char *a, const char *b) {
 }
 
 char *search(Animal *leaf) {
-    char *ret = "";
+    char *ret =  (char *) malloc(16);
+    // char *buf = "";
     char buf[16];
 
-    while (leaf) {
-        if (!leaf->right && !leaf->left) {
-            ret = leaf->str;
-            break;
+    // printf("%s\n", leaf->str);
+
+    // do {
+        while (leaf) {
+            if (!leaf->right && !leaf->left) {
+                ret = leaf->str;
+                break;
+            }
+
+            printf("%s ", leaf->str);
+            fgets(buf, sizeof(buf), stdin);
+
+            // case input is 'q' 'Q' or close the program
+            if (strcmp(buf, "q\n") == 0 || strcmp(buf, "Q\n") == 0) {
+                strcpy(ret, buf);
+                break;
+            }
+            // If yes, go to the right
+            if ((*buf == 's') || (*buf == 'S')) leaf = leaf->right;   
+            // Otherwise, left
+            else if ((*buf == 'n') || (*buf == 'N')) leaf = leaf->left;
         }
-
-        printf("%s ", leaf->str);
-        fgets(buf, sizeof(buf), stdin);
-
-        // If yes, go to the right
-        if ((*buf == 's') || (*buf == 'S')) leaf = leaf->right;   
-        // Otherwise, left
-        else if ((*buf == 'n') || (*buf == 'N')) leaf = leaf->left;
-    }
-
+    // } while ((*buf != 'q') || (*buf != 'Q'));
     return ret;
 }
 
@@ -117,11 +125,16 @@ int main() {
         insert(&dict[i], &parent, (compare)cmpStr);
     }
 
-    char *loop = search(parent);
+    char *res = search(parent);
 
-    // Print the search, until you exit with the option 'q' or 'Q'
-    if (search(parent) != NULL)
-        printf("> %s\n", loop);
+    do {
+        if (strcmp(res, "q\n") == 0 || strcmp(res, "Q\n") == 0) { printf("Finished!\n"); break; }
+        else if ((strcmp(res, "") != 0))  printf("> %s\n", res);
+        else printf("> Not found\n");    
+
+        res = search(parent);
+        
+    } while (strcmp(res, "q\n") != 0);
 
     return 0;
 }

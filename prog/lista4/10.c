@@ -133,7 +133,7 @@ int main() {
 
         res = search(parent);
         
-    } while (strcmp(res, "q\n") != 0);
+    } while (1);
 
     return 0;
 }

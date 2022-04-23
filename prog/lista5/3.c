@@ -24,7 +24,6 @@ int isLeapYear(int year)
 
 int countLeapYears(int year)
 {
-     - 0 - 0
     return (year / 4) - (year / 100) + (year / 400);
 }
 

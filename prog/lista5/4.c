@@ -83,7 +83,7 @@ int isPrimeThree(int number, int n)
     // Caso o resto da divisao seja igual a 0 o numero nao 'e primo
     if (number % n == 0) return 0;
 
-    // Recursao com n-1 até alcançar o caso base que eh quatidade de divisoes
+    // Recursao com n-1 até alcançar o caso base que 'e o 
     else isPrimeThree(number, n-1);
 }
 

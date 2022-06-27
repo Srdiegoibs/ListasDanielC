@@ -1,26 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MIN_N 1000
+#define MAX_N 100000
+
+
 int main() {
-    int number = 232;
-    int digit = 0;
-    int* ptr = malloc(sizeof(int));
-    
-    printf("malloc %ld\n", sizeof(ptr));
+    int number = 0;
+    int remainder = 0;
+    int reverse = 0;
+    int temp = 0;
 
-    int cont = 0;
-    while(number != 0)
-    {
-        ptr[cont] = number % 10;
-        number /= 10;
-        //ptr = realloc(ptr, sizeof(int));
-        //printf("realoc %ld\n", sizeof(ptr));
-        cont++;
+    for (number=MIN_N; number<=MAX_N; number++) {
+        temp = number;
+        while (temp != 0) {
+            remainder %= 10;
+            reverse *= 10 + remainder;
+            temp /= 10;
+        }
+        if (number == reverse) {
+            printf("%d\n", number);
+        }
+        reverse = 0;
     }
+    
 
-    for(int i = 0; i <cont; i++)
-        printf("%d, ", ptr[i]);
 
+
+    free(aux);
     free(ptr);
+
     return 0;
 }

@@ -13,22 +13,18 @@ int main() {
 
     for (number=MIN_N; number<=MAX_N; number++) {
         temp = number;
-        while (temp != 0) {
-            remainder %= 10;
-            reverse *= 10 + remainder;
+        reverse = 0;
+        
+        while (temp) {
+            remainder = temp % 10;
+            reverse = reverse * 10 + remainder;
             temp /= 10;
         }
-        if (number == reverse) {
+
+        if (number == reverse) 
             printf("%d\n", number);
-        }
-        reverse = 0;
+        
     }
-    
-
-
-
-    free(aux);
-    free(ptr);
 
     return 0;
 }

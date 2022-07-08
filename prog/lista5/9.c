@@ -9,27 +9,31 @@
 //**I**
 
 int main() {
-    int h = 0;
-    scanf("%d", &h);
+    int height = 0;
+    scanf("%d", &height);
 
-    if (h < 1) {
+    if (height < 1) {
         printf("Erro: Altura inválida\n");
         return 1;
     }
 
-    
+    int space = height - 1;
 
-    for (int i = 0; i < h; i++) {
-        if (i == 0) {
-            printf("I");
-        } else {
-            for (int j = 0; j < h - i; j++) {
-                printf("*");
-            }
-        }
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < space; j++) 
+            printf(" ");
+        
+        for (int j = 1; j < i + 1; j++) 
+            printf("*");
+        
+        printf("I");
+
+        for (int j = 1; j < i + 1; j++) 
+            printf("*");
+
         printf("\n");
+        space--;
     }
-
 
     return 0;
 }

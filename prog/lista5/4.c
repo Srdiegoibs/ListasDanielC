@@ -8,7 +8,7 @@ int isPrimeOne(int number);
 
 // função calcula o numero primo utilizando o resto da divisão 
 // começando do 2 até o number/2
-int isPrimeTwo(int number)
+int isPrimeTwo(int number);
 
 // função recursiva para calcular o numero primo
 int isPrimeThree(int number, int n);

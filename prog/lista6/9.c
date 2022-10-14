@@ -4,13 +4,11 @@
 #define MAX_LENGTH 100
 
 
-// receive a word and a phrase from the user, print which
-// word position in the sentence
-
-
 int main()
 {
-   
+    char *str = malloc(MAX_LENGTH);
+    str
+    char *subStr =  malloc(MAX_LENGTH)
 
     return 0;
 }

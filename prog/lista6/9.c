@@ -49,6 +49,9 @@ int main()
     }
     else printf ("%d\n", cont);
 
+    free(aux);
+    free(str);
+    free(subStr);
     return 0;
 }
 

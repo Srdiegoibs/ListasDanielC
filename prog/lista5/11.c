@@ -1,3 +1,5 @@
+// 11) Escreva um programa que tome como entrada dois caracteres e imprima todos os
+// caracteres no intervalo.
 #include <stdio.h>
 
 int main() {

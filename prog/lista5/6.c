@@ -1,3 +1,5 @@
+// 6) Escreva um programa que leia 10 números e computa a média, máximo e menor
+// valor.
 #include <stdio.h>
 #include <stdlib.h>
 

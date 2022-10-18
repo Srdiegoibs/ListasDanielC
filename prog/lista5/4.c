@@ -1,3 +1,6 @@
+// 4) Construa um programa que, para um número inteiro e positivo, informe se o mesmo é
+// um número primo ou não. Um número é primo se for divisível exatamente apenas por 1
+// e por ele mesmo.
 #include <stdio.h>
 
 // int ehPrimo(int number, int n)

@@ -1,3 +1,6 @@
+// 12) Crie um jogo de adivinhação onde a saída é apenas “Alto” ou “Baixo” e o usuário
+// deve adivinhar qual o valor correto. Quando o usuário adivinhar o valor, o programa
+// deve imprimir “Correto” seguido do número de tentativas que o usuário usou.
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

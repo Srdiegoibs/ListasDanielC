@@ -1,3 +1,5 @@
+// 8) Escreva um programa que fatora uma entrada. Por exemplo, para a entrada 12 a saída
+// seria “2 2 3”
 #include <stdio.h>
 #include <stdlib.h>
 

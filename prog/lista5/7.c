@@ -1,3 +1,5 @@
+// 7) Faça um programa que encontre todos os números primos entre dois limites dados
+// pelo usuário.
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

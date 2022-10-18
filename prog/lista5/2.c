@@ -1,3 +1,5 @@
+// 2) Faça um programa que calcule e escreva a quantidade de grãos de milho que se pode
+// colocar num tabuleiro de xadrez, conforme regra definida no quadro abaixo:
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

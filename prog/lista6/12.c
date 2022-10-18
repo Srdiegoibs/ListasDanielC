@@ -8,7 +8,7 @@ int main()
   int array[] = {32, 45, 67, 1, 67, 9, 4, 87, 100, 10};
   int n = 1;
 
-  int min = array[0];
+  int min = array[0]; 
   int max = array[0];
 
   int len = sizeof(array) / sizeof(array[0]);

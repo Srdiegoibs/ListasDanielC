@@ -1,3 +1,4 @@
+// 10) Calcule o número de Euler usando um somatório.
 #include <stdio.h>
 #include <stdlib.h>
 

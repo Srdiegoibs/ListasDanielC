@@ -1,3 +1,6 @@
+//5) Palíndromos são números que têm o mesmo valor se lidos da esquerda para a direita
+// ou da direita para a esquerda. Exemplos: 44, 232, etc. Faça um programa que determine
+// e escreva todos os números inteiros entre 1000 que 10000 que são palíndromos.
 #include <stdio.h>
 #include <stdlib.h>
 

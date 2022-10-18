@@ -1,3 +1,4 @@
+// 13) Escreva um programa que ordene um vetor de 10 inteiros por ordem crescente
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,31 +7,37 @@
 
 int main()
 {
-    int *array = malloc(SIZE);
-    int temp = 0, i = 0;
+    int *array = malloc(sizeof(int) * SIZE);
+    int temp = 0, i = 0, j = 0;
+
 
     srand(time(NULL));
-    for (; i < SIZE; i++)
+    for (i = 0; i < SIZE; i++)
     {
-        array[i] = rand() % SIZE + 1;
+        array[i] = rand() % 99 + 1;
+        printf("%d ", array[i]);
     }
 
     for (i = 0; i < SIZE; i++)
     {
-        if (array[i] < array[i + 1])
+        for (j = i + 1; j < SIZE; j++)
         {
-            temp = array[i];
-            array[i] = array[i+1];
-            array[i+1] = temp;
+            if (array[i] > array[j])
+            {
+                temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
         }
-
-        
     }
 
-    
-    // for(i = 0; i < SIZE; i++)
-    //     printf("%d, ", array[i]);
-
+    printf("\n");
+    for (i = 0; i < SIZE; i++)
+    {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+  
     free(array);
     return 0;
 }

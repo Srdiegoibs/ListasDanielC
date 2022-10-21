@@ -14,7 +14,7 @@ int main()
     srand(time(NULL));
     for (i = 0; i < SIZE; i++)
     {
-        array[i] = rand() % 99 + 1;
+        array[i] = rand() % 99 + 1; 
         printf("%d ", array[i]);
     }
 

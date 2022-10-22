@@ -8,14 +8,25 @@
 int main(int args, char *argv[]) {
 
   int i, count = 0;
+  char **word;
 
-  for (i = 1; i < args; i++) {
-      if (strlen(argv[i]) > count) {
-          count = strlen(argv[i]);
-      }
+  word = (char **)malloc(args * sizeof(char *));
+
+  for (i = 0; i < args; i++) {
+    word[i] = (char *)malloc(strlen(argv[i]) * sizeof(char));
+    strcpy(word[i], argv[i]);
   }
 
-  printf("The word %s is the largest and has %d characters", argv[i], count);
+  for (i = 0; i < args; i++) {
+    if (strlen(word[i]) > strlen(word[count])) {
+      count = i;
+    }
+  }
+  printf("The biggest word is: %s");
 
+  for (i = 0; i < args; i++) 
+    free(word[i]);
+
+  free(word);
   return 0;
 }

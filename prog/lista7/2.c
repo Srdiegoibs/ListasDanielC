@@ -5,30 +5,71 @@
 #include <stdlib.h>
 #include <time.h>
 
-int* intersection(int* X, int* Y, int* Z);
+int* intersection(int* X, int* Y, int sizeX, int sizeY, int* sizeZ);
 
 int main () {
-    int* X = malloc (7 * sizeof(int));
-    int* Y = malloc (7 * sizeof(int));
-    int* Z = malloc (7 * sizeof(int));
 
-    for (int i = 0; i < 7; i++) {
-      X[i] = (rand() % 10);
-      Y[i] = (rand() % 10);
+    int sizeX, sizeY;
+    scanf("%d", &sizeX);
+    scanf("%d", &sizeY);
+
+    int* X = (int*)malloc(sizeX * sizeof(int));
+    int* Y = (int*)malloc(sizeY * sizeof(int));
+
+    int i;
+    srand(time(NULL));
+    for(i = 0; i < sizeX; i++) {
+        X[i] = rand() % 10; 
     }
 
-//     for (int i = 0; i < 7; i++) printf("%d\n", X[i]);
-//     printf ("\n");
-//     for (int i = 0; i < 7; i++) printf("%d\n", Y[i]);
+    printf("X: ");
+    for(i = 0; i < sizeX; i++) {
+        printf("%d ", X[i]);
+    }
+    printf("\n");
 
+    i = 0;
+    while(i < sizeY) {
+        Y[i] =rand() % 10;
+        i++;
+    }
+
+    printf("Y: ");
+    for(i = 0; i < sizeY; i++) {
+        printf("%d ", Y[i]);
+    }
+    printf("\n");
+
+    int sizeZ;
+    int* Z = intersection(X, Y, sizeX, sizeY, &sizeZ);
+
+
+    printf("Z: ");
+    for(i = 0; i < sizeZ; i++) {
+        printf("%d ", Z[i]);
+    }
+    printf("\n");
+
+    
     free(X);
     free(Y);
     free(Z);
     return 0;
 }
 
-int* intersection(int* X, int* Y, int* Z) {
-    for (int i = 0; i < 7; i++) {
-        if(X[i] == Y[i])
+
+int* intersection(int* X, int* Y, int sizeX, int sizeY, int* sizeZ) {
+    int* Z = (int*)malloc(sizeof(int));
+    int i, j, k = 0;
+    for(i = 0; i < sizeX; i++) {
+        for(j = 0; j < sizeY; j++) {
+            if(X[i] == Y[j]) {
+                Z[k++] = X[i];
+                Z = (int*)realloc(Z, (k + 1) * sizeof(int));
+                break;
+            }
+        }
     }
+    *sizeZ = k;
+    return Z;
 }

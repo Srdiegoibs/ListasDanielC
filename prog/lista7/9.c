@@ -41,20 +41,18 @@ int main() {
 
 
     printf("\n");
-    // sum = sum_selected(4, mat, 1);
-    printf("Diagonal superior esquerda\n> %d\n", sum_selected(order, mat, 4));
-    printf("Diagonal superior direita\n> %d\n", sum_selected(order, mat, 2));
-    printf("Diagonal inferior esquerda\n> %d\n", sum_selected(order, mat, 3));
-    printf("Diagonal inferior direita\n> %d\n", sum_selected(order, mat, 1));
-    printf("Soma das colunas ímpares\n> %d\n", sum_selected(order, mat, 5));
-    printf("Soma das linhas pares\n> %d\n", sum_selected(order, mat, 6));
+    printf("A > %d\n", sum_selected(order, mat, 2));
+    printf("B > %d\n", sum_selected(order, mat, 3));
+    printf("C > %d\n", sum_selected(order, mat, 4));
+    printf("D > %d\n", sum_selected(order, mat, 1));
+    printf("E > %d\n", sum_selected(order, mat, 5));
+    printf("F > %d\n", sum_selected(order, mat, 6));
 
 
     for (int i = 0; i < order; i++) {
         free(mat[i]);
     }
-  free(mat);
-
+    free(mat);
     return 0;
 }
 

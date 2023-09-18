@@ -5,57 +5,100 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_ENTRIES 256
-#define MAX_NAME_LENGTH 255
+#define MAX_ENTRIES  256
 
-struct Tuples{
-    char entries[MAX_ENTRIES][2][MAX_NAME_LENGTH];
-    int values[MAX_ENTRIES]; 
-};
+typedef struct {
+    char *name;
+    int number;
+} Registry;
 
-int compare(const void *a, const void *b); 
+void addResister(Registry list[], int *count, char *name, int number);
+char *duplicateString(const char *str);
 
-int main() {
-    struct Tuples t; 
-   
-    FILE *fp = fopen("file.txt", "r");
-    if (!fp) {
-        printf("Error\n");
+int main()
+{
+    Registry registry[MAX_ENTRIES];
+    int count = 0;
+
+    // Abrir arquivo para leitura e escrita
+    FILE *file = fopen("data.txt", "r+");
+    if (!file)
+    {
+        perror("ERRO!");
         return 1;
     }
 
-    while(fscanf(fp, "%s %d", t.entries[]
+   // Ler arquivo
+   char name[50];
+   int number;
+   while (fscanf(file, "%s %d", name, &number) == 2)
+   {
+        addResister(registry, &count, name, number);
+   }
 
+   // retorne para o inicio do arquivo 
+   rewind(file);
+
+   // Escreva os registros no arquivo
+   for (int i = 0; i < count; i++) 
+   {
+    fprintf(file, "%s %d\n", registry[i].name, registry[i].number);
+    free(registry[i].name);
+   }
+
+   while(1) 
+   {
+       scanf("%s %d", name, &number);
+       addResister(registry, &count, name, number);
+
+       fprintf(file, "%s %d\n", name, number);
+
+       if (strcmp(name, "q") == 0) break; 
+   }
+
+    fclose(file);
 
     return 0;
-//    char entries[MAX_ENTRIES][2][MAX_NAME_LENGTH];
-//    int values[MAX_ENTRIES];
-//    int num_entries = 0;
-//
-//    FILE *fp;
-//    fp = fopen("file.txt", "r");
-//    if (!fp) {
-//        printf("EERRO\n");
-//        return 1;
-//    }
-//    
-//    while(fscanf(fp, "%s %d", entries[num_entries][0], &values[num_entries]) == 2) {
-//        strcpy(entries[num_entries][1], entries[num_entries][0]);
-//        num_entries++;
-//    }
-//    
-//    qsort(values, num_entries, sizeof(int), compare);
-//
-//    for (int i = 0; i < num_entries; i++) {
-//        printf("(%s, %d)\n", entries[i][1], values[i]);
-//    }
-//
-//    fclose(fp);
-//
-//    return 0;
 }
 
+void addResister(Registry list[], int *count, char *name, int number)
+{
+    if (*count < MAX_ENTRIES)
+    {
+        // caso seja possivel adicionar elemetos, alocar memoria para o nome
+        list[*count].name = duplicateString(name);
+        list[*count].number = number;
+        (*count)++;
+    }
+    else 
+    {
+        int highest_index = 0; 
+        for (int i = 1; i < MAX_ENTRIES; i++)
+        {
+            if (list[i].number > list[highest_index].number)
+            {
+                highest_index = i;
+            }
+        };
 
-int compare(const void *a, const void *b) {
-    return (*(int*)a - *(int*)b);
+        free(list[highest_index].name);
+        list[highest_index].name = duplicateString(name);
+        list[highest_index].number = number;
+    }
+}
+
+char *duplicateString(const char *str)
+{
+    if (str == NULL)
+    {
+        return NULL;
+    }
+
+    char *duplicate = (char *)malloc(strlen(str) + 1); // + 1 para o caracter nulo
+    if (duplicate)
+    {
+        strcpy(duplicate, str);
+    }
+
+    return duplicate;
 }
